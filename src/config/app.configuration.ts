@@ -16,10 +16,17 @@ function appConfig() {
     DATABASE_NAME: process.env.DATABASE_NAME,
     DATABASE_USE_SSL: process.env.DATABASE_USE_SSL === 'true',
 
+    JWT_SECRET: process.env.JWT_SECRET,
+    JWT_ACCESS_EXPIRE_MINUTE:
+      parseInt(process.env.JWT_ACCESS_EXPIRE_MINUTE) || 180,
+    JWT_ACCESS_REFRESH_MINUTE:
+      parseInt(process.env.JWT_ACCESS_REFRESH_MINUTE) || 30 * 24 * 60,
+    JWT_ALGORITHM: process.env.JWT_ALGORITHM || 'HS256',
+
     LOG_CHANNELS: process.env.LOG_CHANNELS || 'console,file',
     LOG_LEVEL: process.env.LOG_LEVEL || 'debug',
     LOG_FILE_NAME: process.env.LOG_FILE_NAME || 'nest.log',
-    LOG_FILE_DIRNAME: process.env.LOG_FILE_DIRNAME || 'logs',
+    LOG_FILE_DIRNAME: process.env.LOG_FILE_DIRNAME || 'logs'
   };
 }
 

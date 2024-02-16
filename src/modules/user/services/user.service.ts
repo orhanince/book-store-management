@@ -1,14 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import { UserRepository } from '../repository/user.repository';
+import { CheckUserRequest } from '../dtos';
 
 @Injectable()
 export class UserService {
   constructor(private repository: UserRepository) {}
-  async getUsers() {
-    return await this.repository.getUsers();
+
+  async create(name, email, password) {
+    return await this.repository.createUser(name, email, password);
   }
 
-  async getUserList() {
-    return await this.repository.getUserList();
+  async getUser(checkUserRequest: CheckUserRequest) {
+    const { email } = checkUserRequest;
+    return await this.repository.getUserByEmail(email);
   }
 }

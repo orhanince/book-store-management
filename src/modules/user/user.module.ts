@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, forwardRef } from '@nestjs/common';
 import { CacheModule } from '@nestjs/cache-manager';
 import { AdminUserController } from './controllers/admin-user.controller';
 import { UserController } from './controllers/user.controller';
@@ -6,11 +6,13 @@ import { UserRepository } from './repository/user.repository';
 import { UserService } from 'src/modules/user/services/user.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import User from './entities/user.entity';
+import { AuthModule } from '../auth/auth.module';
 
 @Module({
   imports: [
     CacheModule.register(),
-    TypeOrmModule.forFeature([User, UserService])
+    TypeOrmModule.forFeature([User, UserService]),
+    forwardRef(() => AuthModule)
   ],
   controllers: [AdminUserController, UserController],
   providers: [UserRepository, UserService],
