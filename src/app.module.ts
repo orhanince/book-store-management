@@ -5,7 +5,7 @@ import { EventEmitterModule } from '@nestjs/event-emitter';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { PrimaryDataBaseConfig } from './common/database/typeorm/typeorm.module';
 import { HealthModule } from 'src/modules/health/health.module';
-
+import { UserModule } from './modules/user/user.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -15,7 +15,8 @@ import { HealthModule } from 'src/modules/health/health.module';
     TypeOrmModule.forRoot(PrimaryDataBaseConfig()),
     EventEmitterModule.forRoot(),
     HealthModule,
+    UserModule
   ],
-  providers: [Logger],
+  providers: [Logger]
 })
 export class AppModule {}
