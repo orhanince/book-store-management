@@ -8,6 +8,7 @@ import { PrimaryDataBaseConfig } from './common/database/typeorm/typeorm.module'
 import { HealthModule } from 'src/modules/health/health.module';
 import { UserModule } from './modules/user/user.module';
 import { AuthModule } from './modules/auth/auth.module';
+import { RoleModule } from './modules/role/role.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -19,6 +20,7 @@ import { AuthModule } from './modules/auth/auth.module';
     HealthModule,
     AuthModule,
     UserModule,
+    RoleModule,
     JwtModule.register({
       global: true
     })
