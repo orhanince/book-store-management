@@ -16,5 +16,6 @@ export function PrimaryDataBaseConfig(): TypeOrmModuleOptions {
     ssl: configService.get('DATABASE_USE_SSL') === 'true',
     synchronize: true,
     parseInt8: true,
+    autoLoadEntities: true
   };
 }
