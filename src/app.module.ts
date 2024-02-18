@@ -19,11 +19,11 @@ import { BookStoreModule } from './modules/book-store/book-store.module';
     }),
     TypeOrmModule.forRoot(PrimaryDataBaseConfig()),
     EventEmitterModule.forRoot(),
-    BookModule,
-    BookStoreModule,
     HealthModule,
     AuthModule,
     UserModule,
+    BookModule,
+    BookStoreModule,
     RoleModule,
     JwtModule.register({
       global: true

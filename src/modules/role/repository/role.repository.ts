@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import {
   CreateRoleRequest,
   DeleteUserRolesRequest,
@@ -39,6 +39,26 @@ export class RoleRepository {
         ID
       }
     });
+  }
+
+  async getUserRoleType(userID: bigint) {
+    const userRole = await this.userRoleRepository.findOne({
+      where: {
+        userID: userID
+      }
+    });
+
+    if (!userRole) {
+      throw new NotFoundException('User role not found!');
+    }
+
+    const role = await this.roleRepository.findOne({
+      where: {
+        ID: userRole.roleID
+      }
+    });
+
+    return role.key;
   }
 
   async updateRole(updateRole: UpdateRoleRequest) {
