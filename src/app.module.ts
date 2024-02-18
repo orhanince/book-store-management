@@ -9,6 +9,7 @@ import { HealthModule } from 'src/modules/health/health.module';
 import { UserModule } from './modules/user/user.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { RoleModule } from './modules/role/role.module';
+import { BookModule } from './modules/book/book.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -17,6 +18,7 @@ import { RoleModule } from './modules/role/role.module';
     }),
     TypeOrmModule.forRoot(PrimaryDataBaseConfig()),
     EventEmitterModule.forRoot(),
+    BookModule,
     HealthModule,
     AuthModule,
     UserModule,
