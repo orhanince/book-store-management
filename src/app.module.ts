@@ -10,6 +10,7 @@ import { UserModule } from './modules/user/user.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { RoleModule } from './modules/role/role.module';
 import { BookModule } from './modules/book/book.module';
+import { BookStoreModule } from './modules/book-store/book-store.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -19,6 +20,7 @@ import { BookModule } from './modules/book/book.module';
     TypeOrmModule.forRoot(PrimaryDataBaseConfig()),
     EventEmitterModule.forRoot(),
     BookModule,
+    BookStoreModule,
     HealthModule,
     AuthModule,
     UserModule,
