@@ -3,6 +3,7 @@ import { RoleRepository } from '../repository/role.repository';
 import {
   CreateRoleRequest,
   DeleteUserRolesRequest,
+  GetUserRoleTypeRequest,
   UpdateRoleRequest
 } from '../dtos';
 import { AddUserRolesRequest } from '../dtos/add-user-roles.dto';
@@ -17,6 +18,11 @@ export class RoleService {
 
   async getRoles() {
     return await this.repository.getRoles();
+  }
+
+  async getUserRoleType(getUserRoleTypeRequest: GetUserRoleTypeRequest) {
+    const { userID } = getUserRoleTypeRequest;
+    return await this.repository.getUserRoleType(userID);
   }
 
   async updateRole(updateRoleRequest: UpdateRoleRequest) {
