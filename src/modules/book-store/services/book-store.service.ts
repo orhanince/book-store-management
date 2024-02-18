@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { CreateBookStoreRequest } from '../dtos';
+import { AddStoreBookRequest, CreateBookStoreRequest } from '../dtos';
 import { BookStoreRepository } from '../repository/book-store.repository';
 
 @Injectable()
@@ -12,5 +12,10 @@ export class BookStoreService {
 
   async getBookStores() {
     return await this.repository.getBookStores();
+  }
+
+  async addStoreBook(addStoreBookRequest: AddStoreBookRequest) {
+    await this.repository.addStoreBook(addStoreBookRequest);
+    return { success: true };
   }
 }

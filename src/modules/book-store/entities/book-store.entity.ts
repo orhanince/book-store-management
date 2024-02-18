@@ -4,10 +4,13 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   UpdateDateColumn,
-  PrimaryGeneratedColumn
+  PrimaryGeneratedColumn,
+  OneToMany
 } from 'typeorm';
 
-@Entity({ name: 'book-stores' })
+import StoreBook from './store-book.entity';
+
+@Entity({ name: 'book_stores' })
 export default class BookStore {
   @PrimaryGeneratedColumn({ type: 'bigint', name: 'id', unsigned: true })
   public ID: bigint;
@@ -37,4 +40,6 @@ export default class BookStore {
     default: null
   })
   deletedAt: Date;
+  @OneToMany(() => StoreBook, (target) => target.store_book)
+  store_books: BookStore[];
 }
