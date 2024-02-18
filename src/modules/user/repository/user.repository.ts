@@ -41,4 +41,8 @@ export class UserRepository {
     }
     return user;
   }
+
+  async getUsers() {
+    return await this.userRepository.find({});
+  }
 }

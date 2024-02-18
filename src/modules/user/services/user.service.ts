@@ -14,4 +14,8 @@ export class UserService {
     const { email } = checkUserRequest;
     return await this.repository.getUserByEmail(email);
   }
+
+  async getUsers() {
+    return await this.repository.getUsers();
+  }
 }

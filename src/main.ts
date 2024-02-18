@@ -5,8 +5,8 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const options = new DocumentBuilder()
-    .setTitle('Your API Title')
-    .setDescription('Your API description')
+    .setTitle('Book Store Management API')
+    .setDescription('Book store management api docs.')
     .setVersion('1.0')
     .addServer('http://localhost:3000/', 'Local environment')
     .addTag('Your API Tag')
