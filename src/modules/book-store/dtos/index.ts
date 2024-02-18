@@ -4,4 +4,10 @@ import {
 } from './create-book-store.dto';
 import { BookListResponse } from './book-store-list.dto';
 
-export { CreateBookStoreRequest, CreateBookStoreResponse, BookListResponse };
+import { AddStoreBookRequest } from './add-store-book.dto';
+export {
+  AddStoreBookRequest,
+  CreateBookStoreRequest,
+  CreateBookStoreResponse,
+  BookListResponse
+};

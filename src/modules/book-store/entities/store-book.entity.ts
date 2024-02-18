@@ -5,11 +5,13 @@ import {
   ManyToOne,
   CreateDateColumn,
   UpdateDateColumn,
-  PrimaryGeneratedColumn
+  PrimaryGeneratedColumn,
+  Unique
 } from 'typeorm';
 import BookStore from './book-store.entity';
 
 @Entity({ name: 'store_books' })
+@Unique('book_store_unique', ['bookID', 'bookStoreID'])
 export default class StoreBook {
   @PrimaryGeneratedColumn({ type: 'bigint', name: 'id', unsigned: true })
   public ID: bigint;
