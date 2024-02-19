@@ -20,7 +20,11 @@ export class RoleRepository {
   ) {}
 
   async getRoles() {
-    return await this.roleRepository.find();
+    return await this.roleRepository.find({
+      where: {
+        active: true
+      }
+    });
   }
 
   async createRole(createRole: CreateRoleRequest) {
@@ -61,10 +65,10 @@ export class RoleRepository {
     return role.key;
   }
 
-  async updateRole(updateRole: UpdateRoleRequest) {
+  async updateRole(roleID: bigint, updateRole: UpdateRoleRequest) {
     await this.roleRepository.update(
       {
-        ID: updateRole.ID
+        ID: roleID
       },
       {
         key: updateRole.key,
@@ -73,9 +77,8 @@ export class RoleRepository {
         active: updateRole.active
       }
     );
-    return this.getRoleById(updateRole.ID);
+    return this.getRoleById(roleID);
   }
-
   async addUserRoles(addUserRolesRequest: AddUserRolesRequest) {
     const records = [];
     addUserRolesRequest.roleIDs.map(async (roleID) => {
@@ -96,5 +99,18 @@ export class RoleRepository {
       userID: deleteUserRolesRequest.userID,
       roleID: deleteUserRolesRequest.roleID
     });
+  }
+
+  async deleteRole(roleID: bigint) {
+    return this.roleRepository.update(
+      {
+        ID: roleID
+      },
+      {
+        active: false,
+        updatedAt: new Date(),
+        deletedAt: new Date()
+      }
+    );
   }
 }

@@ -15,7 +15,11 @@ export class UserRepository {
   ) {}
 
   async createUser(name: string, email: string, password: string) {
-    const user = await this.getUserByEmail(email);
+    const user = await this.userRepository.findOne({
+      where: {
+        email: email
+      }
+    });
 
     if (user) {
       throw new ConflictException('User already exist!');
@@ -43,6 +47,10 @@ export class UserRepository {
   }
 
   async getUsers() {
-    return await this.userRepository.find({});
+    return await this.userRepository.find({
+      where: {
+        active: true
+      }
+    });
   }
 }

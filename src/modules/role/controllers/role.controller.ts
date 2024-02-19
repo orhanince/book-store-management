@@ -1,4 +1,13 @@
-import { Body, Controller, Get, Post, Put, Delete } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Put,
+  Delete,
+  UseGuards,
+  Param
+} from '@nestjs/common';
 import { RoleService } from '../services/role.service';
 import { ApiTags, ApiBody } from '@nestjs/swagger';
 import {
@@ -10,12 +19,23 @@ import {
   UpdateRoleRequest,
   UpdateRoleResponse
 } from '../dtos';
+import { AuthGuard } from 'src/modules/auth/guards/auth.guard';
+import { Roles } from 'src/decorators/roles.decorator';
 
+@UseGuards(AuthGuard)
 @ApiTags('Role')
 @Controller('role')
-export class AdminRoleController {
+export class RoleController {
   constructor(private readonly roleService: RoleService) {}
-  @Post('/admin/create')
+
+  @Roles('admin')
+  @Get('/')
+  async getRoles(): Promise<RoleListResponse> {
+    return await this.roleService.getRoles();
+  }
+
+  @Roles('admin')
+  @Post('/')
   @ApiBody({
     type: CreateRoleRequest,
     description: 'Role json object.'
@@ -26,23 +46,30 @@ export class AdminRoleController {
     return await this.roleService.createRole(createRoleRequest);
   }
 
-  @Get('/admin/roles')
-  async getRoles(): Promise<RoleListResponse> {
-    return await this.roleService.getRoles();
-  }
-
-  @Put('/admin/update')
+  @Roles('admin')
+  @Put('/:roleID')
   @ApiBody({
     type: UpdateRoleRequest,
     description: 'Update role'
   })
   async updateRole(
+    @Param('roleID') roleID: bigint,
     @Body() updateRoleRequest: UpdateRoleRequest
   ): Promise<UpdateRoleResponse> {
-    return await this.roleService.updateRole(updateRoleRequest);
+    return await this.roleService.updateRole(roleID, updateRoleRequest);
   }
 
-  @Post('/admin/add-user-roles')
+  @Roles('admin')
+  @Delete('/:roleID')
+  @ApiBody({
+    description: 'Soft delete role.'
+  })
+  async deleteRole(@Param('roleID') roleID: bigint): Promise<any> {
+    return await this.roleService.deleteRole(roleID);
+  }
+
+  @Roles('admin')
+  @Post('/add-user-roles')
   @ApiBody({
     type: AddUserRolesRequest,
     description: 'Add user roles.'
@@ -53,7 +80,8 @@ export class AdminRoleController {
     return await this.roleService.addUserRoles(addUserRolesRequest);
   }
 
-  @Delete('/admin/delete-user-roles')
+  @Roles('admin')
+  @Delete('/delete-user-roles')
   @ApiBody({
     type: AddUserRolesRequest,
     description: 'Delete user roles.'

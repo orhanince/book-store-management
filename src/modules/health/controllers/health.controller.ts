@@ -6,9 +6,14 @@ import { HealthCheck } from '@nestjs/terminus';
 export class HealthController {
   constructor(private readonly healthService: HealthService) {}
 
-  @Get()
+  @Get('/')
   @HealthCheck()
   check() {
     return this.healthService.check();
+  }
+
+  @Get('/seed')
+  async seed() {
+    return this.healthService.seedDb();
   }
 }

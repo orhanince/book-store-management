@@ -25,8 +25,12 @@ export class RoleService {
     return await this.repository.getUserRoleType(userID);
   }
 
-  async updateRole(updateRoleRequest: UpdateRoleRequest) {
-    return this.repository.updateRole(updateRoleRequest);
+  async updateRole(roleID: bigint, updateRoleRequest: UpdateRoleRequest) {
+    return this.repository.updateRole(roleID, updateRoleRequest);
+  }
+
+  async deleteRole(roleID: bigint) {
+    return this.repository.deleteRole(roleID);
   }
 
   async addUserRoles(addUserRolesRequest: AddUserRolesRequest) {

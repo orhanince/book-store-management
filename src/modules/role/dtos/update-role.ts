@@ -3,17 +3,12 @@ import {
   MaxLength,
   MinLength,
   IsBoolean,
-  IsAlphanumeric,
-  IsNumber
+  IsAlphanumeric
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import Role from '../entities/role.entity';
 
 export class UpdateRoleRequest {
-  @IsNumber()
-  @ApiProperty()
-  ID: bigint;
-
   @IsString()
   @MaxLength(50)
   @MinLength(3)
