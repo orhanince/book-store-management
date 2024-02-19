@@ -1,3 +1,1 @@
-import BookStore from './../entities/book-store.entity';
-
-export type BookListResponse = BookStore[];
+export type BookListResponse = any[];

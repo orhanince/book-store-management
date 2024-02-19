@@ -12,6 +12,13 @@ export class BookRepository {
     private bookRepository: Repository<Book>
   ) {}
 
+  async getBookByID(bookID: bigint) {
+    return await this.bookRepository.findOne({
+      where: {
+        ID: bookID
+      }
+    });
+  }
   async getBooks() {
     return await this.bookRepository.find();
   }

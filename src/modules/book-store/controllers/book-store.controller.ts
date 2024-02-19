@@ -12,6 +12,14 @@ import { BookStoreService } from '../services/book-store.service';
 @Controller('book-store')
 export class BookStoreController {
   constructor(private readonly bookStoreService: BookStoreService) {}
+
+  @Get('/')
+  @ApiBody({
+    description: 'Get book store list.'
+  })
+  async getBookStores(): Promise<any> {
+    return await this.bookStoreService.getBookStores();
+  }
   @Post('/admin/create')
   @ApiBody({
     type: CreateBookStoreRequest,
@@ -21,11 +29,6 @@ export class BookStoreController {
     @Body() createBookStoreRequest: CreateBookStoreRequest
   ): Promise<CreateBookStoreResponse> {
     return await this.bookStoreService.createBookStore(createBookStoreRequest);
-  }
-
-  @Get('/admin/book-stores')
-  async getRoles(): Promise<BookListResponse> {
-    return await this.bookStoreService.getBookStores();
   }
 
   @Post('/admin/add-store-book')
