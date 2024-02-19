@@ -7,10 +7,12 @@ import BookStore from './entities/book-store.entity';
 import { BookStoreService } from './services/book-store.service';
 import BookStoreBook from './entities/store-book.entity';
 import { BookModule } from '../book/book.module';
+import { AuthModule } from '../auth/auth.module';
 @Module({
   imports: [
     CacheModule.register(),
     TypeOrmModule.forFeature([BookStore, BookStoreBook]),
+    forwardRef(() => AuthModule),
     forwardRef(() => BookModule)
   ],
   controllers: [BookStoreController],
