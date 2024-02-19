@@ -8,15 +8,6 @@ import { AuthResponse, LoginRequest, RegisterRequest } from './../dtos';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @Post('/login')
-  @ApiBody({
-    type: LoginRequest,
-    description: 'Login json object.'
-  })
-  async login(@Body() loginRequest: LoginRequest): Promise<AuthResponse> {
-    return await this.authService.login(loginRequest);
-  }
-
   @Post('/register')
   @ApiBody({
     type: RegisterRequest,
@@ -26,5 +17,14 @@ export class AuthController {
     @Body() registerRequest: RegisterRequest
   ): Promise<AuthResponse> {
     return await this.authService.register(registerRequest);
+  }
+
+  @Post('/login')
+  @ApiBody({
+    type: LoginRequest,
+    description: 'Login json object.'
+  })
+  async login(@Body() loginRequest: LoginRequest): Promise<AuthResponse> {
+    return await this.authService.login(loginRequest);
   }
 }

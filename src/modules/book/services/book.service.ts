@@ -10,6 +10,9 @@ export class BookService {
     return await this.repository.createBook(createBookRequest);
   }
 
+  async getBookByID(bookID: bigint) {
+    return await this.repository.getBookByID(bookID);
+  }
   async getBooks() {
     return await this.repository.getBooks();
   }

@@ -9,7 +9,7 @@ export class JWTService {
     private readonly jwtService: JwtService
   ) {}
 
-  async getUserJwtToken({ name, email }) {
+  async getUserJwtToken({ name, email, role }) {
     const accessTokenExpireMinutes = this.configService.get(
       'JWT_ACCESS_EXPIRE_MINUTE'
     );
@@ -17,11 +17,11 @@ export class JWTService {
       'JWT_ACCESS_REFRESH_MINUTE'
     );
     const accessToken = this.jwtService.sign(
-      { name, email },
+      { name, email, role },
       this.getJwtSignOptions(accessTokenExpireMinutes)
     );
     const refreshToken = this.jwtService.sign(
-      { name, email },
+      { name, email, role },
       this.getJwtSignOptions(refreshTokenExpireMinutes)
     );
 
@@ -41,5 +41,27 @@ export class JWTService {
       algorithm: this.configService.get('JWT_ALGORITHM')
     };
     return jwtSignOptions;
+  }
+
+  async jwtVerify(token) {
+    try {
+      const accessToken = token.toString().replace('Bearer ', '');
+      if (accessToken) {
+        return await this.jwtService.verifyAsync(
+          accessToken,
+          this.getJwtVerifyOptions()
+        );
+      }
+      return false;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  getJwtVerifyOptions() {
+    return {
+      secret: this.configService.get('JWT_SECRET'),
+      algorithms: [this.configService.get('JWT_ALGORITHM')]
+    };
   }
 }

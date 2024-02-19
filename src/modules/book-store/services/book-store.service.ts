@@ -18,4 +18,8 @@ export class BookStoreService {
     await this.repository.addStoreBook(addStoreBookRequest);
     return { success: true };
   }
+
+  async getAvailableBooks(storeID: bigint) {
+    return await this.repository.getAvailableBooks(storeID);
+  }
 }
