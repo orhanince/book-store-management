@@ -1,4 +1,13 @@
-import { Body, Controller, Get, Post, Put, Delete, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Put,
+  Delete,
+  UseGuards,
+  Param
+} from '@nestjs/common';
 import { RoleService } from '../services/role.service';
 import { ApiTags, ApiBody } from '@nestjs/swagger';
 import {
@@ -38,15 +47,25 @@ export class RoleController {
   }
 
   @Roles('admin')
-  @Put('/update')
+  @Put('/:roleID')
   @ApiBody({
     type: UpdateRoleRequest,
     description: 'Update role'
   })
   async updateRole(
+    @Param('roleID') roleID: bigint,
     @Body() updateRoleRequest: UpdateRoleRequest
   ): Promise<UpdateRoleResponse> {
-    return await this.roleService.updateRole(updateRoleRequest);
+    return await this.roleService.updateRole(roleID, updateRoleRequest);
+  }
+
+  @Roles('admin')
+  @Delete('/:roleID')
+  @ApiBody({
+    description: 'Soft delete role.'
+  })
+  async deleteRole(@Param('roleID') roleID: bigint): Promise<any> {
+    return await this.roleService.deleteRole(roleID);
   }
 
   @Roles('admin')
