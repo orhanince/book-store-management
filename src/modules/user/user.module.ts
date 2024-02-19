@@ -1,6 +1,5 @@
 import { Module, forwardRef } from '@nestjs/common';
 import { CacheModule } from '@nestjs/cache-manager';
-import { AdminUserController } from './controllers/admin-user.controller';
 import { UserController } from './controllers/user.controller';
 import { UserRepository } from './repository/user.repository';
 import { UserService } from 'src/modules/user/services/user.service';
@@ -14,7 +13,7 @@ import { AuthModule } from '../auth/auth.module';
     TypeOrmModule.forFeature([User, UserService]),
     forwardRef(() => AuthModule)
   ],
-  controllers: [AdminUserController, UserController],
+  controllers: [UserController],
   providers: [UserRepository, UserService],
   exports: [UserRepository, UserService]
 })

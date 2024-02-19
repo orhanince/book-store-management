@@ -47,6 +47,10 @@ export class UserRepository {
   }
 
   async getUsers() {
-    return await this.userRepository.find({});
+    return await this.userRepository.find({
+      where: {
+        active: true
+      }
+    });
   }
 }
