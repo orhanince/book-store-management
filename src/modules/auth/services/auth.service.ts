@@ -1,9 +1,14 @@
-import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  NotFoundException
+} from '@nestjs/common';
 import { JWTService } from './jwt.service';
 import { AuthResponse, LoginRequest, RegisterRequest } from './../dtos';
 import { UserService } from 'src/modules/user/services/user.service';
 import { RoleService } from 'src/modules/role/services/role.service';
 import { EncryptService } from './encrypt.service';
+import { GetUserRoleTypeRequest } from 'src/modules/role/dtos';
 //import { GetUserRoleTypeRequest } from 'src/modules/role/dtos';
 
 @Injectable()
@@ -29,23 +34,24 @@ export class AuthService {
       throw new ConflictException('Password wrong!');
     }
     const { name } = user;
-    const role = 'user';
+    const getUserRoleTypeRequest: GetUserRoleTypeRequest = {
+      userID: user.ID
+    };
+    const userRoleType = await this.roleService.getUserRoleType(
+      getUserRoleTypeRequest
+    );
+
+    const role = userRoleType;
     const jwtTokenObj = await this.jwtService.getUserJwtToken({
       name,
       email,
       role
     });
-    /**const getUserRoleTypeRequest: GetUserRoleTypeRequest = {
-      userID: user.ID
-    };
-    const userRoleType = await this.roleService.getUserRoleType(
-      getUserRoleTypeRequest
-    );*/
     return {
       name: user.name,
       email: user.email,
+      role: role,
       accessToken: jwtTokenObj.accessToken,
-      role: 'user',
       expiresIn: jwtTokenObj.expiresIn,
       refreshToken: jwtTokenObj.refreshToken,
       refreshTokenExpiresIn: jwtTokenObj.refreshTokenExpiresIn
