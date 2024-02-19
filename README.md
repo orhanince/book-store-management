@@ -18,3 +18,25 @@ After cloning the repository, run the command below in the root directory.
 For running the application
 
 <pre>npm run start:dev</pre>
+
+You can check the app documentation on swagger via this link => http://localhost:3000/api-docs
+
+Create a YOUR_JWT_SECRET for the JWT token on .env file.
+<pre>JWT_SECRET=YOUR_JWT_SECRET</pre>
+
+To start using the application, it is necessary to trigger the endpoint below. This endpoint will add entries to the database for the admin.
+
+<pre> /health/seed </pre>
+
+You can find the user information in the .env.example file.
+
+<pre>
+TEST_USER_NAME
+TEST_USER_EMAIL
+TEST_USER_PASSWORD
+TEST_ROLE_TITLE
+TEST_ROLE_KEY
+TEST_ROLE_DESC
+</pre>
+
+
