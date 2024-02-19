@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, forwardRef } from '@nestjs/common';
 import { CacheModule } from '@nestjs/cache-manager';
 import { BookStoreController } from './controllers/book-store.controller';
 import { BookStoreRepository } from './repository/book-store.repository';
@@ -6,10 +6,14 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import BookStore from './entities/book-store.entity';
 import { BookStoreService } from './services/book-store.service';
 import BookStoreBook from './entities/store-book.entity';
+import { BookModule } from '../book/book.module';
+import { AuthModule } from '../auth/auth.module';
 @Module({
   imports: [
     CacheModule.register(),
-    TypeOrmModule.forFeature([BookStore, BookStoreBook])
+    TypeOrmModule.forFeature([BookStore, BookStoreBook]),
+    forwardRef(() => AuthModule),
+    forwardRef(() => BookModule)
   ],
   controllers: [BookStoreController],
   providers: [BookStoreRepository, BookStoreService],

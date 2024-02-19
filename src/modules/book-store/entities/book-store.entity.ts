@@ -12,6 +12,7 @@ import StoreBook from './store-book.entity';
 
 @Entity({ name: 'book_stores' })
 export default class BookStore {
+  [x: string]: any;
   @PrimaryGeneratedColumn({ type: 'bigint', name: 'id', unsigned: true })
   public ID: bigint;
 
