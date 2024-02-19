@@ -6,6 +6,7 @@ import { JWTService } from './services/jwt.service';
 import { UserModule } from '../user/user.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { RoleModule } from '../role/role.module';
+import { EncryptService } from './services/encrypt.service';
 
 @Module({
   imports: [
@@ -15,7 +16,7 @@ import { RoleModule } from '../role/role.module';
     forwardRef(() => RoleModule)
   ],
   controllers: [AuthController],
-  providers: [AuthService, JWTService],
-  exports: [AuthService, JWTService]
+  providers: [AuthService, JWTService, EncryptService],
+  exports: [AuthService, JWTService, EncryptService]
 })
 export class AuthModule {}

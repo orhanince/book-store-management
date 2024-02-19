@@ -7,6 +7,7 @@ export class UserService {
   constructor(private repository: UserRepository) {}
 
   async create(name, email, password) {
+    console.log('ddd', 11);
     return await this.repository.createUser(name, email, password);
   }
 
